@@ -34,10 +34,11 @@ def calculate_loss(model, X, y):
     z2 = a1.dot(W2) + b2
     a2 = np.tanh(z2)
 
-    exp_scores = np.exp(z2)
+    exp_scores = np.exp(a2)
     probs = exp_scores / np.sum(exp_scores, axis = 1, keepdims = True)
 
     corect_logprobs = -np.log(probs[range(num_examples), y])
+    pdb.set_trace()
     data_loss = np.sum(corect_logprobs)
 
     data_loss += reg_lambda / 2 * (np.sum(np.square(W1)) + np.sum(np.square(W2)))
@@ -49,7 +50,9 @@ def predict(model, x):
     z1 = x.dot(W1) + b1
     a1 = np.tanh(z1)
     z2 = a1.dot(W2) + b2
-    exp_scores = np.exp(z2)
+    a2 = np.tanh(z2)
+
+    exp_scores = np.exp(a2)
     probs = exp_scores / np.sum(exp_scores, axis = 1, keepdims = True)
     return np.argmax(probs, axis = 1)
 
